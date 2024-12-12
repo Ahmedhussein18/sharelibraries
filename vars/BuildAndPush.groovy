@@ -4,6 +4,7 @@ def call(Map params) {
     def githubCredentialsId = params.githubCredentialsId
     def githubRepo = params.githubRepo
     def dockerhubCredentialsId = params.dockerhubCredentialsId
+    def dockerhubUserName = params.dockerhubUserName
     def imageName = params.imageName
     def imageTag = params.imageTag ?: "latest"  // Default to 'latest' if not provided
 
@@ -16,14 +17,14 @@ def call(Map params) {
 
     // Build Docker Image
     stage('Build Docker Image') {
-        sh "docker build -t ${imageName}:${imageTag} ."
+        sh "docker build -t ${dockerhubUserName}/${imageName}:${imageTag} ."
     }
 
     // Push Docker Image
     stage('Push Docker Image') {
         withCredentials([usernamePassword(credentialsId: dockerhubCredentialsId, passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
             sh "echo \$DOCKER_PASS | docker login -u \$DOCKER_USER --password-stdin"
-            sh "docker push ${imageName}:${imageTag}"
+            sh "docker push ${dockerhubUserName}/${imageName}:${imageTag}"
         }
     }
 }
