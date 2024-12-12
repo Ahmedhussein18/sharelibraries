@@ -2,9 +2,6 @@
 
 pipeline {
     agent any
-    environment{
-      githubCredentialsId: 'github-token'
-    }
     stages {
         stage('Build and Push Docker Image') {
             steps {
