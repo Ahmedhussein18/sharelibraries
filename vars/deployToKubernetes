@@ -1,4 +1,4 @@
-def call(String kubeDeployFile, String dockerImage, String credentialsId) {
+def call(String kubeDeployFile, String imageName, String credentialsId) {
     pipeline {
         agent any
         environment {
