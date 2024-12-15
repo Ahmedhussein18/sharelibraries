@@ -1,4 +1,4 @@
-@Library('FirstShareLibrary'@main) _
+@Library('FirstShareLibrary') _
 
 pipeline {
     agent any
